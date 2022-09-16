@@ -8,6 +8,10 @@ export const registerAction = createAsyncThunk(
     return data;
   }
 );
+export const loginAction = createAsyncThunk("auth/login", async (user) => {
+  const { data } = await authApi.logIn(user);
+  return data;
+});
 export const setStatusAction = createAsyncThunk(
   "auth/seSttatus",
   async () => {}

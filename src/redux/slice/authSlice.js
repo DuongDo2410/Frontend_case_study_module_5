@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerAction, setStatusAction } from "../actionThunk";
+import { loginAction, registerAction, setStatusAction } from "../actionThunk";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -14,6 +14,13 @@ const authSlice = createSlice({
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+    });
+    builder.addCase(loginAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(loginAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.isLogin = true;
     });
     builder.addCase(setStatusAction.fulfilled, (state, action) => {
       state.status = "idle";

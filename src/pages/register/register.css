@@ -1,4 +1,4 @@
-.login {
+/* .login {
   width: 100vw;
   height: 100vh;
   background-color: #f0f2f5;
@@ -50,10 +50,6 @@
   padding-left: 20px;
 }
 
-.loginInput:focus {
-  outline: none;
-}
-
 .loginButton {
   height: 50px;
   border-radius: 10px;
@@ -81,4 +77,4 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-}
+} */

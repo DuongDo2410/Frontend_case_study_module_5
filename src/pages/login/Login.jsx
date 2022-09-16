@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setStatusAction } from "../../redux/actionThunk";
-
+import { loginAction, setStatusAction } from "../../redux/actionThunk";
+import { useForm } from "react-hook-form";
 export default function Login() {
   let { status } = useSelector((state) => state.auth);
   const disPatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const notify = () => {
-    toast.success("🦄 Login success!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-  if (status == "fulfilled") {
-    console.log("done");
-    notify();
-    disPatch(setStatusAction());
-  }
+  const onSubmit = (data) => disPatch(loginAction(data));
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -37,9 +27,19 @@ export default function Login() {
         </div>
         <div className="loginRight">
           <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <button className="loginButton">Log In</button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                placeholder="Username"
+                className="loginInput"
+                {...register("username")}
+              />
+              <input
+                placeholder="Password"
+                className="loginInput"
+                {...register("password")}
+              />
+              <button className="loginButton">Log In</button>
+            </form>
             <span className="loginForgot">Forgot Password?</span>
             <Link to={"/register"} className="loginRegisterButton">
               Create a New Account
